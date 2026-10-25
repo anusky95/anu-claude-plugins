@@ -1,0 +1,19 @@
+{
+  "name": "anu-claude-plugins",
+  "description": "Claude plugins by Anupama Garani: practical tools for builders and teams in regulated, high-trust work",
+  "owner": {
+    "name": "Anupama Garani"
+  },
+  "plugins": [
+    {
+      "name": "learn-it",
+      "source": "./plugins/learn-it",
+      "description": "Your AI tutor: learn any concept or GitHub repo from the source, then get quizzed"
+    },
+    {
+      "name": "launch-kit",
+      "source": "./plugins/launch-kit",
+      "description": "Turn what you shipped into posts, announcements and release notes"
+    }
+  ]
+}

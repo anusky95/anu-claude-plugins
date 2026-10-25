@@ -1,0 +1,10 @@
+{
+  "name": "learn-it",
+  "description": "A personal AI tutor: learn any concept or GitHub repo in 15 minutes, from the source, at your level, then get quizzed",
+  "version": "1.0.0",
+  "author": {
+    "name": "Anupama Garani"
+  },
+  "license": "MIT",
+  "keywords": ["learning", "education", "github", "onboarding", "quiz", "tutor"]
+}

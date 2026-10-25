@@ -1,0 +1,10 @@
+{
+  "name": "launch-kit",
+  "description": "Turn what you shipped into what you share: posts, announcements and release notes from your real work, in your voice",
+  "version": "1.0.0",
+  "author": {
+    "name": "Anupama Garani"
+  },
+  "license": "MIT",
+  "keywords": ["content", "linkedin", "release-notes", "announcements", "writing"]
+}
