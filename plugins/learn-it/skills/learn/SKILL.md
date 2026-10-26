@@ -24,6 +24,8 @@ Add: "Or say skip and I'll assume a curious professional who is new to this."
 
 Use the answers for this lesson. Then, if you can edit files, offer once: "Want me to save this to me.md so I don't ask again?" If they say yes, fill in me.md's FILL IN lines with their answers in their words, and change nothing else in the file.
 
+Then read [team.md](team.md). If it is filled in, this lesson is part of a team's onboarding: use the team's words and rules, mention who owns what and where to ask for help, and tie the "why it matters" and the projects to the team's work. If it is blank, skip it.
+
 ## Step 2. Go to the source
 
 Do not teach from memory. Things in AI change every week.

@@ -20,6 +20,8 @@ Open [examples/mitochondria.html](examples/mitochondria.html) before you design.
 
 Adapted from Anthropic's `frontend-design` and `playground` skills (Apache-2.0, see `licenses/`).
 
+**Use the team's look first.** If team.md sets colors or a style, use them. Otherwise:
+
 **Ground it in the subject.** Take the palette, shapes and metaphors from the subject's own world: stain colors for cell biology, blueprint blue for networking, ledger green for accounting, the project's own brand colors for a repo. Write a tiny plan first: 4 to 6 named hex colors, one or two typefaces (system fonts only), the hero concept in one sentence. Then check it: if the plan would fit any topic, change it.
 
 **Avoid the look of a generated page.** These are the tells; do not use them unless the subject calls for it:

@@ -3,7 +3,12 @@
 **Type:** Three skills plus a read-only fact-checker subagent
 **Works in:** Claude Code, Cowork, and claude.ai chat. In chat the skills check facts themselves, because agents are not available there. Reading a repo works best in Claude Code; in the app it reads the repo through GitHub links.
 
-Your AI tutor for a field that changes every week. Learn any concept or GitHub repo in about 15 minutes, from official sources or the real code, at your level. Every lesson ends with projects to build, a "use it tomorrow" checklist and a quiz. A fact-checker checks every claim before you see it.
+**Onboard anyone to anything.** New hires, people switching teams, and anyone catching up on a field that changes every week spend days piecing together repos, docs and jargon. learn-it turns a repo or a concept into a 15-minute, fact-checked lesson with an interactive code map or illustration, in your team's words, and a quiz at the end.
+
+- **For a team:** a lead fills in `team.md` once (your terms, your rules, the repos to learn first, your colors), commits it, and shares the plugin. Every newcomer gets the same quality of walkthrough for every repo.
+- **For one person:** skip `team.md`. learn-it asks three questions about you and teaches at your level.
+
+A fact-checker checks every claim against its source or `file:line` before anyone sees it.
 
 ## Install
 
@@ -45,13 +50,23 @@ Each lesson gives you: the idea in one line, why it matters for your job, how it
 
 You can also just ask: "help me understand this repo" or "teach me prompt caching".
 
+## Set it up for your team (10 minutes)
+
+1. Fork this repo, or copy `plugins/learn-it` into your team's own plugin repo.
+2. Fill in `skills/learn/team.md`: who you are, the repos to learn first, your terms, your rules, who to ask, your colors.
+3. Optional: change `skills/learn/teaching-style.md` to teach your way.
+4. Raise `version` in `.claude-plugin/plugin.json`, commit, and share the install line with your team.
+5. A new hire runs `/learn-it:repo <your repo>` on day one.
+
+Use made-up or approved data in `team.md`. Run it only on repos your company allows Claude to read.
+
 ## Make it yours
 
 Search this folder for `FILL IN`. Pick a level:
 
 | Level | Edit | You learn |
 |---|---|---|
-| 1. No code | `skills/learn/me.md`: your role, what you know, how you like to learn. Every lesson changes. | Skills are just instructions |
+| 1. No code | `skills/learn/team.md` (for a team) or `skills/learn/me.md` (for you). Every lesson changes. | Skills are just instructions |
 | 2. Still no code | `skills/learn/teaching-style.md`: change the lesson shape to teach your way. Or add your own design rule in `skills/learn/visual.md`. | Supporting files shared by skills |
 | 3. A little code | `agents/fact-checker.md`: add a check or change its tools. Or add a hook that saves every lesson to a `lessons/` folder. | Subagents, hooks |
 

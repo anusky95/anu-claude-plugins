@@ -14,7 +14,7 @@ In the Claude desktop app, Cowork or claude.ai: **Customize > Plugins > Add > Ad
 
 | Plugin | What it does | Install | Works in |
 |---|---|---|---|
-| [learn-it](plugins/learn-it) | Your AI tutor: learn any concept or GitHub repo in about 15 minutes, from official sources or the real code, at your level, with projects, a "use it tomorrow" checklist and a quiz | `claude plugin install learn-it@anu-claude-plugins` | Claude Code, Cowork, chat |
+| [learn-it](plugins/learn-it) | Onboard anyone to anything: fact-checked lessons and interactive code maps for your team's repos and concepts, in your team's words, with projects, a "use it tomorrow" checklist and a quiz | `claude plugin install learn-it@anu-claude-plugins` | Claude Code, Cowork, chat |
 | [launch-kit](plugins/launch-kit) | Turns a repo, commits, a doc or notes into a LinkedIn post, Slack or Teams note, email and release notes, checked by a skeptical editor | `claude plugin install launch-kit@anu-claude-plugins` | Claude Code, Cowork, chat |
 
 More coming: journey-twin (digital twins that walk your app's code), regulator-roast (a panel that reviews launch docs and code before the real reviewers do) and plugin-tour (a plugin that explains itself).
@@ -31,7 +31,7 @@ claude plugin install learn-it@anu-claude-plugins
 /learn-it:quiz
 ```
 
-First, open `plugins/learn-it/skills/learn/me.md` and tell it who you are. Every lesson changes.
+Setting it up for a team? Fill in `plugins/learn-it/skills/learn/team.md` once and share the plugin. Using it yourself? It asks three quick questions the first time.
 
 ## Be careful with what you install
 

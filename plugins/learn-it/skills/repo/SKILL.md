@@ -12,6 +12,8 @@ Repo: $ARGUMENTS
 
 Read [me.md](../learn/me.md). If it is filled in, use it. If its FILL IN lines are blank, ask the same three questions as the learn skill's Step 1 (job, how technical, where they'll try things) in one short message and wait, with the same "skip" option and the same offer to save the answers to me.md.
 
+Then read [team.md](../learn/team.md). If it is filled in, treat this as team onboarding: use the team's words, follow its rules, say who to ask for help, and if this repo is not first on its "Start here" list, mention which one to learn first. If it is blank, skip it.
+
 ## Step 2. Get the code
 
 Pick the first case that fits:

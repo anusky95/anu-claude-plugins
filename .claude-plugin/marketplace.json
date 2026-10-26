@@ -8,7 +8,7 @@
     {
       "name": "learn-it",
       "source": "./plugins/learn-it",
-      "description": "Your AI tutor: learn any concept or GitHub repo from the source, then get quizzed"
+      "description": "Onboard anyone to anything: lessons and code maps for your team's repos"
     },
     {
       "name": "launch-kit",
