@@ -1,65 +1,58 @@
 # The visual lesson page
 
-Every lesson and repo walkthrough also becomes one page the learner can open in a browser: a diagram with numbered callouts, the steps, project cards, a checklist and a clickable quiz.
+Every lesson and repo walkthrough also becomes one beautiful, interactive page the learner opens in a browser. It is designed for its subject, not stamped from a template.
 
-## How to make it
+Open [examples/mitochondria.html](examples/mitochondria.html) before you design. It is the standard to meet: a palette drawn from the subject (stain colors from a microscope slide), one interactive illustration you step through, and quiet, list-based sections below it. Do not copy its colors or layout; copy its level of care.
 
-1. Copy [lesson-template.html](lesson-template.html) to a new file named `learn-it-<short-topic>.html` in the learner's current folder. In the Claude app, show the finished page as an HTML artifact instead of saving a file.
-2. Replace ONLY the JSON inside `<script type="application/json" id="lesson">`. Do not change anything else in the file.
-3. The JSON must be valid. Use `\n` for line breaks inside strings, and never put `</script>` inside it.
-4. Leave exactly one new file in the learner's folder: the lesson page. If you used a helper script or a scratch copy to build it, delete those before you finish.
+## What every page must have
 
-## The JSON
+1. **A title and one-sentence lede** that says what the learner will understand.
+2. **The hero: one interactive illustration of the real mechanism.** Hand-built inline SVG. The learner steps through it with buttons (and the arrow keys), and each step lights up or animates the part it describes, with 2 or 3 sentences of text beside it.
+   - For a concept: draw the thing itself (a cross-section, a machine, a network, a timeline), not a flowchart of labeled boxes.
+   - For a repo: draw a **code map**. Group the important files into layers (for example "what you type", "instructions", "tools", "data"), draw real connections between them, and make one step-through trace of a real request moving file to file. Clicking a file shows what it does and its `file:line`.
+3. **Try it in 10 minutes:** numbered steps.
+4. **Projects:** an hour, a day, a week.
+5. **Use it tomorrow:** a tick-off checklist.
+6. **Check yourself:** 3 clickable questions that show right or wrong with the reason, and a score.
+7. **Go deeper:** the source links.
 
-```json
-{
-  "title": "MCP, the plug standard for AI tools",
-  "kind": "concept or repo",
-  "learner": "Compliance analyst, bank (from me.md)",
-  "date": "2026-10-26",
-  "oneLine": "One sentence, the same as the lesson's 'In one line'.",
-  "whyItMatters": "Two or three sentences tied to the learner's role.",
-  "diagram": {
-    "mermaid": "flowchart LR\n  A[\"1. Host app\"] --> B[\"2. Client\"] --> C[\"3. Server\"]",
-    "caption": "What the picture shows, in a few words"
-  },
-  "callouts": [
-    { "n": 1, "title": "Host app", "text": "One or two plain sentences." }
-  ],
-  "map": "Repo walkthroughs only: the folder tree as plain text, or leave it out.",
-  "steps": [
-    { "title": "Short step name", "text": "One or two sentences.", "ref": "file.js:12 or a source link, optional" }
-  ],
-  "example": "One concrete example from the sources, optional.",
-  "exercise": { "title": "What they will do", "steps": ["Step one", "Step two"], "success": "What they should see" },
-  "mixups": ["Common mix-up one"],
-  "projects": [
-    { "size": "1 hour", "title": "Short name", "text": "What it is and why." },
-    { "size": "1 day", "title": "", "text": "" },
-    { "size": "1 week", "title": "", "text": "" }
-  ],
-  "tomorrow": ["First step tomorrow", "What to check at work"],
-  "quiz": [
-    { "q": "Question?", "options": ["Option A", "Option B", "Option C"], "answer": 1, "why": "Why B is right, with its source or file:line." }
-  ],
-  "sources": [{ "title": "Official docs", "url": "https://example.com" }],
-  "factCheck": "Fact-checked against 3 sources as of 2026-10-26."
-}
-```
+## Design rules
 
-## The diagram is the heart of the page
+Adapted from Anthropic's `frontend-design` and `playground` skills (Apache-2.0, see `licenses/`).
 
-- Draw the real mechanism, not a decoration: what calls what, what flows where, in what order.
-- 4 to 8 boxes. Number the boxes in the order a reader should follow them ("1. ...", "2. ..."), and write one callout per number with the same title.
-- Put every box label in double quotes, escaped inside the JSON: `A[\"1. Host app\"]`.
-- Pick the shape that fits:
-  - `flowchart TD` (top to bottom) for most processes. It stays readable on any screen.
-  - `flowchart LR` (left to right) only for 4 boxes or fewer. A longer row shrinks the text until no one can read it.
-  - `sequenceDiagram` for messages going back and forth between two or three parties.
-- Show real branches where they exist, for example a decision diamond `D{\"Exit code 2?\"}` with "yes, blocked" and "no, allowed" arrows. A straight line of boxes is the last resort.
-- Group related boxes with `subgraph` when there are two clear sides, like "Your computer" and "The service".
-- Keep box labels short (under 30 characters). Put the detail in the callouts, not the boxes.
-- For a repo, draw how one real request or command moves through the files. Put file names in the boxes.
-- Every box and arrow must be supported by the lesson's facts. The fact-checker checks the diagram too.
+**Ground it in the subject.** Take the palette, shapes and metaphors from the subject's own world: stain colors for cell biology, blueprint blue for networking, ledger green for accounting, the project's own brand colors for a repo. Write a tiny plan first: 4 to 6 named hex colors, one or two typefaces (system fonts only), the hero concept in one sentence. Then check it: if the plan would fit any topic, change it.
 
-FILL IN (optional): change the template's colors in its `:root` block to your brand.
+**Avoid the look of a generated page.** These are the tells; do not use them unless the subject calls for it:
+- a cream background with a serif headline and a terracotta accent;
+- a near-black background with one acid-bright accent;
+- content chopped into identical rounded cards with the same shadow;
+- small all-caps labels above every heading, details joined with middle dots, arrows added to link text;
+- numbered markers on things that are not a sequence;
+- fade-and-slide animation on every section.
+
+**Spend your boldness in one place:** the hero illustration. Keep everything else quiet: generous space, clear type scale, lines under 80 characters, lists instead of card grids.
+
+**Motion only where it teaches:** the step-through animation in the hero. Nothing else moves. Respect `prefers-reduced-motion`.
+
+**Quality floor, always:**
+- One self-contained HTML file. All CSS and JS inline. No CDNs, no external fonts or images, so it works offline.
+- Works at phone width (390px): the page itself never scrolls sideways, the illustration comes first, and its labels stay readable (12px or larger on screen). If the illustration is wide (a code map, a long timeline), give phones their own layout: stack the layers top to bottom, or put the SVG in a box that scrolls sideways on its own with a short "swipe to see more" hint. Never let it shrink until the text is unreadable.
+- Works in dark mode (`prefers-color-scheme`).
+- Visible keyboard focus. Text contrast of at least 4.5:1. Every SVG has a `<title>`.
+- Every label in the SVG sits clear of lines and shapes. No text overlaps.
+
+## Accuracy
+
+Every part you draw is a claim. Each shape, label and arrow must match the fact sheet or the code. Put a short "how this picture maps to the facts" list in what you send the fact-checker, so it can check the drawing too.
+
+## Check your own work before handing it over
+
+1. If you can take a screenshot (a browser tool, or Playwright if it is installed), open the page at desktop width and at 390px wide, step through every state, and look. At 390px, check that `document.documentElement.scrollWidth` is 390 (no sideways scroll) and the labels are readable. Fix overlapping labels, clipped text, parts in the wrong place, and anything that looks generic.
+2. If you cannot take screenshots, re-read the SVG coordinates for every label and shape and fix collisions, then check the page at phone width in your head: does the hero stack above the text?
+3. Remove one decoration you don't need.
+
+## Files
+
+Save it as `learn-it-<short-topic>.html` in the learner's current folder. Leave exactly one new file: delete any helper scripts or scratch copies. In the Claude app, show the page as an HTML artifact instead of saving a file.
+
+FILL IN (optional): add your own brand rule here, for example "always use our company colors for repo walkthroughs".

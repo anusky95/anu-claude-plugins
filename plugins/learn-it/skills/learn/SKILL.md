@@ -38,7 +38,7 @@ Write a short list of facts you will teach, each with the link it came from. Do 
 
 ## Step 3. Write the lesson
 
-Follow [teaching-style.md](teaching-style.md) exactly, shaped by me.md. Also draft the diagram for the visual page now (see [visual.md](visual.md)), so the fact-checker sees it.
+Follow [teaching-style.md](teaching-style.md) exactly, shaped by me.md. Also plan the hero illustration for the visual page now (see [visual.md](visual.md)): what it draws, its steps, and how each part maps to a fact. Include that plan in what the fact-checker sees.
 
 ## Step 4. Fact-check
 
@@ -46,10 +46,10 @@ This step is required. Hand the `fact-checker` agent from this plugin the lesson
 
 ## Step 5. Make the visual page
 
-Always do this. Follow [visual.md](visual.md): copy [lesson-template.html](lesson-template.html) to `learn-it-<short-topic>.html` and fill in its lesson JSON from the fact-checked lesson. The diagram must show the real mechanism.
+Always do this. Follow [visual.md](visual.md) and meet the standard of [examples/mitochondria.html](examples/mitochondria.html): design a page for this subject, with one interactive illustration of the real mechanism, and check your own work before handing it over. Save it as `learn-it-<short-topic>.html`.
 
 ## Step 6. Hand it over
 
-Show the lesson. Under it, one line: "Fact-checked against N sources, as of <today's date>." Then give the path of the visual page and say: "Open it in your browser for the diagram and a clickable quiz." In the Claude app, show the page as an HTML artifact. End with: "Say `/learn-it:quiz` when you're ready to test yourself, or ask me to go deeper on any part."
+Show the lesson. Under it, one line: "Fact-checked against N sources, as of <today's date>." Then give the path of the visual page and say: "Open it in your browser and step through the picture, then take the quiz." In the Claude app, show the page as an HTML artifact. End with: "Say `/learn-it:quiz` when you're ready to test yourself, or ask me to go deeper on any part."
 
 FILL IN (optional): add a step for your team, for example "save the lesson to `lessons/<topic>.md`".

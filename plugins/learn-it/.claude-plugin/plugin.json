@@ -1,7 +1,7 @@
 {
   "name": "learn-it",
   "description": "A personal AI tutor: learn any concept or GitHub repo in 15 minutes, from the source, at your level, then get quizzed",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": {
     "name": "Anupama Garani"
   },

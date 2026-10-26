@@ -39,7 +39,7 @@ Use this shape:
 9. **Use it tomorrow.** A short checklist before using this repo at work: check its license (name the file), how recently it was updated, what it runs or connects to, any secrets or data it touches, and who at work should review it. Then the first concrete step.
 10. **Check yourself.** 3 multiple-choice questions about this repo. Answers at the end with the `file:line` that proves each.
 
-Follow the rules in [teaching-style.md](../learn/teaching-style.md) for tone and length. Also draft the diagram for the visual page now (see [visual.md](../learn/visual.md)), so the fact-checker sees it.
+Follow the rules in [teaching-style.md](../learn/teaching-style.md) for tone and length. Also plan the code map for the visual page now (see [visual.md](../learn/visual.md)): the layers, the files in each, the connections, and the request you will trace. Include that plan, with `file:line` for each part, in what the fact-checker sees.
 
 ## Step 4. Fact-check
 
@@ -47,8 +47,8 @@ Required. Hand the `fact-checker` agent the walkthrough and the path to the code
 
 ## Step 5. Make the visual page
 
-Always do this. Follow [visual.md](../learn/visual.md): copy [lesson-template.html](../learn/lesson-template.html) to `learn-it-<repo-name>.html` in the learner's current folder (not inside the clone), set `"kind": "repo"`, put the folder tree in `map`, and draw how one real request moves through the files in the diagram.
+Always do this. Follow [visual.md](../learn/visual.md) and meet the standard of [examples/mitochondria.html](../learn/examples/mitochondria.html). The hero is an interactive code map: files grouped into layers, real connections, a step-through trace of one real request, and click a file to see what it does and its `file:line`. Take the palette from the project itself (its logo, docs or README) when it has one. Save it as `learn-it-<repo-name>.html` in the learner's current folder, not inside the clone.
 
 ## Step 6. Hand it over
 
-Show the walkthrough, then the path of the visual page: "Open it in your browser for the diagram and a clickable quiz." In the Claude app, show the page as an HTML artifact. End with: "Every file reference was checked against the code. Say `/learn-it:quiz` to test yourself."
+Show the walkthrough, then the path of the visual page: "Open it in your browser and step through the code map, then take the quiz." In the Claude app, show the page as an HTML artifact. End with: "Every file reference was checked against the code. Say `/learn-it:quiz` to test yourself."

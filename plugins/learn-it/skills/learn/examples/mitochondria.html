@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a mitochondrion makes ATP</title>
+<style>
+  /* Palette taken from an H&E-stained slide: hematoxylin purple, eosin pink, on glass. */
+  :root {
+    --glass: #FBF7FA; --ink: #2A2140; --soft: #5E5573; --hema: #4B3F72; --eosin: #D9668A;
+    --eosin-pale: #F6DDE6; --matrix: #FFF8FB; --space: #EBD3DE; --proton: #D99A1E; --atp: #2F8F6B; --rule: #E4D9E3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --glass: #17131F; --ink: #F1ECF6; --soft: #B9AFC8; --hema: #B7A8EA; --eosin: #F08DAD;
+      --eosin-pale: #3A2533; --matrix: #221A2B; --space: #4A2E3F; --proton: #F2B544; --atp: #5CC79D; --rule: #352C40; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--glass); color: var(--ink); font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1, h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-weight: 500; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(34px, 5.2vw, 58px); line-height: 1.05; margin: 0 0 16px; max-width: 14ch; }
+  h2 { font-size: clamp(26px, 3.2vw, 34px); line-height: 1.15; margin: 0 0 14px; }
+  p { margin: 0 0 14px; max-width: 64ch; }
+  .lede { font-size: 20px; color: var(--soft); max-width: 40ch; }
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; align-items: start; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .scope { order: -1; } }
+
+  /* The explorer */
+  .scope { position: relative; }
+  svg.cell { width: 100%; height: auto; display: block; }
+  .stepper { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 10px; }
+  .stepper button { font: 600 14px/1 inherit; font-family: inherit; color: var(--ink); background: transparent; border: 1.5px solid var(--rule); border-radius: 999px; padding: 9px 14px; cursor: pointer; }
+  .stepper button[aria-pressed="true"] { background: var(--hema); border-color: var(--hema); color: var(--glass); }
+  .stepper button:focus-visible, .nav button:focus-visible, .opt:focus-visible { outline: 3px solid var(--eosin); outline-offset: 2px; }
+  .stepText { min-height: 132px; border-left: 3px solid var(--eosin); padding: 2px 0 2px 16px; }
+  .stepText h3 { margin: 0 0 4px; font-size: 19px; }
+  .stepText .where { color: var(--soft); font-size: 14.5px; }
+  .nav { display: flex; gap: 10px; margin-top: 10px; }
+  .nav button { font: 600 15px/1 inherit; font-family: inherit; border: 0; border-radius: 10px; padding: 11px 16px; cursor: pointer; background: var(--eosin-pale); color: var(--ink); }
+  .nav button.primary { background: var(--hema); color: var(--glass); }
+
+  /* SVG states: each step reveals one actor. */
+  .actor { opacity: 0; transition: opacity .5s ease; }
+  .s1 .fuel, .s2 .electrons, .s3 .pump, .s3 .protons, .s4 .protons, .s4 .gauge, .s5 .protons, .s5 .synthase-flow, .s5 .atp, .s6 .electrons-end { opacity: 1; }
+  .s4 .protons .p, .s5 .protons .p { opacity: 1; }
+  .hl { transition: stroke-width .4s ease, filter .4s ease; }
+  .s1 .hl-matrix, .s2 .hl-inner, .s3 .hl-inner, .s5 .hl-synthase { filter: drop-shadow(0 0 6px var(--eosin)); }
+  .p { opacity: .0; transition: opacity .6s ease; }
+  .s3 .p.early { opacity: 1; }
+  @keyframes run { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  .e-dot { offset-path: path("M 168 250 C 168 150, 248 150, 248 250 C 248 150, 328 150, 328 250 C 328 150, 408 150, 408 250"); animation: run 3.2s linear infinite; }
+  .e-dot.d2 { animation-delay: -1.06s; } .e-dot.d3 { animation-delay: -2.13s; }
+  @keyframes drop { 0% { transform: translateY(40px); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateY(-40px); opacity: 0; } }
+  .flow { animation: drop 1.6s ease-in infinite; }
+  .flow.f2 { animation-delay: -.55s; } .flow.f3 { animation-delay: -1.1s; }
+  @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 25% { transform: scale(1.08); opacity: 1; } 40%, 100% { transform: scale(1); opacity: 1; } }
+  .atp-pop { transform-box: fill-box; transform-origin: center; animation: pop 1.6s ease-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .e-dot, .flow, .atp-pop { animation: none; } .actor, .p { transition: none; } }
+
+  /* Lower sections: quiet, list-based, no card grid. */
+  section.block { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px; }
+  @media (max-width: 860px) { section.block { grid-template-columns: 1fr; gap: 8px; } }
+  .side { color: var(--soft); font-size: 15px; }
+  ol.try { padding-left: 22px; margin: 0; } ol.try li { margin-bottom: 8px; }
+  dl.projects { margin: 0; display: grid; grid-template-columns: 90px 1fr; gap: 10px 18px; }
+  dl.projects dt { font-weight: 700; color: var(--eosin); }
+  dl.projects dd { margin: 0; }
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  ul.check label { display: flex; gap: 12px; cursor: pointer; } ul.check input { accent-color: var(--hema); margin-top: 6px; }
+  .q { margin-bottom: 22px; } .q > p { font-weight: 600; margin-bottom: 8px; }
+  .opt { display: block; width: 100%; text-align: left; font: 16px/1.4 inherit; font-family: inherit; color: var(--ink); background: transparent; border: 1.5px solid var(--rule); border-radius: 10px; padding: 10px 14px; margin: 6px 0; cursor: pointer; }
+  .opt:hover:not(:disabled) { border-color: var(--hema); }
+  .opt.right { border-color: var(--atp); background: color-mix(in srgb, var(--atp) 12%, transparent); }
+  .opt.wrong { border-color: var(--eosin); }
+  .verdict { font-size: 15px; color: var(--soft); }
+  .sources a { color: var(--hema); }
+  .note { font-size: 14px; color: var(--soft); margin-top: 48px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="hero">
+    <div>
+      <h1>How a mitochondrion makes ATP</h1>
+      <p class="lede">Your cells run on ATP. Mitochondria make most of it by turning the energy in food into a pile of protons, then letting them flow back like water through a dam.</p>
+      <div class="stepper" role="group" aria-label="Steps">
+        <button type="button" data-step="0" aria-pressed="true">The parts</button>
+        <button type="button" data-step="1" aria-pressed="false">1 Fuel</button>
+        <button type="button" data-step="2" aria-pressed="false">2 Electrons</button>
+        <button type="button" data-step="3" aria-pressed="false">3 Pumping</button>
+        <button type="button" data-step="4" aria-pressed="false">4 The dam</button>
+        <button type="button" data-step="5" aria-pressed="false">5 ATP</button>
+        <button type="button" data-step="6" aria-pressed="false">6 Oxygen</button>
+      </div>
+      <div class="stepText" aria-live="polite"><h3 id="stTitle"></h3><p id="stBody"></p><p class="where" id="stWhere"></p></div>
+      <div class="nav"><button type="button" id="prev">Back</button><button type="button" class="primary" id="next">Next step</button></div>
+    </div>
+
+    <div class="scope">
+      <svg class="cell s0" id="cell" viewBox="0 0 640 420" role="img" aria-labelledby="cellTitle">
+        <title id="cellTitle">Cross-section of a mitochondrion: outer membrane, folded inner membrane, matrix and the space between the membranes</title>
+        <defs>
+          <clipPath id="innerClip"><ellipse cx="300" cy="225" rx="232" ry="128"/></clipPath>
+        </defs>
+        <!-- Outer membrane and the space between membranes -->
+        <ellipse cx="300" cy="225" rx="262" ry="158" fill="var(--space)" stroke="var(--hema)" stroke-width="7"/>
+        <!-- Matrix, bounded by the inner membrane -->
+        <ellipse class="hl hl-matrix" cx="300" cy="225" rx="232" ry="128" fill="var(--matrix)"/>
+        <!-- Cristae: folds of the inner membrane reaching into the matrix -->
+        <g clip-path="url(#innerClip)" fill="var(--space)" stroke="var(--eosin)" stroke-width="5" class="hl hl-inner">
+          <rect x="150" y="80" width="36" height="150" rx="18"/>
+          <rect x="230" y="220" width="36" height="160" rx="18"/>
+          <rect x="310" y="80" width="36" height="150" rx="18"/>
+          <rect x="390" y="220" width="36" height="160" rx="18"/>
+          <rect x="462" y="90" width="32" height="120" rx="16"/>
+        </g>
+        <ellipse class="hl hl-inner" cx="300" cy="225" rx="232" ry="128" fill="none" stroke="var(--eosin)" stroke-width="5"/>
+
+        <!-- Labels for the parts -->
+        <g font-size="14" fill="var(--ink)" font-weight="600">
+          <line x1="560" y1="120" x2="600" y2="70" stroke="var(--soft)" stroke-width="1.2"/><text x="604" y="64" text-anchor="end">Outer membrane</text>
+          <line x1="510" y1="300" x2="590" y2="372" stroke="var(--soft)" stroke-width="1.2"/><text x="604" y="392" text-anchor="end">Inner membrane, folded into cristae</text>
+          <text x="300" y="250" fill="var(--soft)" font-weight="500" text-anchor="middle">Matrix</text>
+          <line x1="70" y1="150" x2="40" y2="80" stroke="var(--soft)" stroke-width="1.2"/><text x="28" y="70">Space between membranes</text>
+        </g>
+
+        <!-- 1 Fuel: pieces broken down in the matrix -->
+        <g class="actor fuel">
+          <g fill="none" stroke="var(--hema)" stroke-width="2.5">
+            <polygon points="270,300 282,293 294,300 294,314 282,321 270,314"/>
+            <polygon points="300,300 312,293 324,300 324,314 312,321 300,314" opacity=".55"/>
+          </g>
+          <g fill="var(--hema)"><circle cx="338" cy="296" r="4"/><circle cx="350" cy="306" r="4"/><circle cx="342" cy="318" r="4"/></g>
+          <text x="282" y="345" font-size="13" fill="var(--ink)">fuel broken down, electrons released</text>
+        </g>
+
+        <!-- 2 Electrons riding the chain along the inner membrane -->
+        <g class="actor electrons">
+          <circle class="e-dot" r="6" fill="var(--hema)"/>
+          <circle class="e-dot d2" r="6" fill="var(--hema)"/>
+          <circle class="e-dot d3" r="6" fill="var(--hema)"/>
+          <text x="186" y="300" font-size="13" fill="var(--ink)">electrons pass along the chain</text>
+        </g>
+
+        <!-- 3 Pumping: arrows from matrix out to the space -->
+        <g class="actor pump" stroke="var(--proton)" stroke-width="3" fill="none">
+          <path d="M 250 160 L 250 92"/><path d="M 242 100 L 250 88 L 258 100"/>
+          <path d="M 286 160 L 286 88"/><path d="M 278 96 L 286 84 L 294 96"/>
+        </g>
+
+        <!-- Protons (H+) collecting between the membranes -->
+        <g class="actor protons" fill="var(--proton)">
+          <circle class="p early" cx="250" cy="80" r="5"/><circle class="p early" cx="292" cy="76" r="5"/>
+          <circle class="p" cx="120" cy="104" r="5"/><circle class="p" cx="210" cy="84" r="5"/><circle class="p" cx="260" cy="76" r="5"/>
+          <circle class="p" cx="372" cy="80" r="5"/><circle class="p" cx="430" cy="92" r="5"/><circle class="p" cx="520" cy="150" r="5"/>
+          <circle class="p" cx="76" cy="240" r="5"/><circle class="p" cx="88" cy="300" r="5"/><circle class="p" cx="140" cy="350" r="5"/>
+          <circle class="p" cx="300" cy="374" r="5"/><circle class="p" cx="460" cy="356" r="5"/><circle class="p" cx="536" cy="280" r="5"/>
+          <text x="226" y="58" font-size="13" font-weight="700">H⁺ protons pile up here</text>
+        </g>
+
+        <!-- 4 Gauge: the dam -->
+        <g class="actor gauge">
+          <rect x="560" y="170" width="14" height="110" rx="7" fill="none" stroke="var(--soft)" stroke-width="1.5"/>
+          <rect x="562" y="186" width="10" height="92" rx="5" fill="var(--proton)"/>
+          <text x="582" y="232" font-size="12" fill="var(--ink)">stored</text><text x="582" y="247" font-size="12" fill="var(--ink)">energy</text>
+        </g>
+
+        <!-- 5 ATP synthase: protons flow back and ATP is made -->
+        <g class="hl hl-synthase">
+          <rect x="401" y="208" width="14" height="26" rx="4" fill="var(--atp)"/>
+          <circle cx="408" cy="196" r="15" fill="var(--atp)"/>
+          <text x="390" y="173" font-size="12" font-weight="700" fill="var(--atp)" text-anchor="end">ATP synthase</text>
+        </g>
+        <g class="actor synthase-flow" fill="var(--proton)">
+          <circle class="flow" cx="408" cy="232" r="5"/><circle class="flow f2" cx="408" cy="232" r="5"/><circle class="flow f3" cx="408" cy="232" r="5"/>
+        </g>
+        <g class="actor atp">
+          <g class="atp-pop"><rect x="352" y="186" width="40" height="24" rx="12" fill="var(--atp)"/><text x="372" y="203" font-size="13" font-weight="700" fill="var(--glass)" text-anchor="middle">ATP</text></g>
+        </g>
+
+        <!-- 6 Oxygen at the end of the chain -->
+        <g class="actor electrons-end">
+          <circle cx="474" cy="236" r="13" fill="none" stroke="var(--hema)" stroke-width="2.5"/>
+          <text x="474" y="241" font-size="12" font-weight="700" text-anchor="middle" fill="var(--hema)">O₂</text>
+          <circle cx="448" cy="246" r="5" fill="var(--hema)"/><circle cx="450" cy="228" r="5" fill="var(--hema)"/>
+          <text x="440" y="270" font-size="13" fill="var(--ink)">electrons end</text><text x="440" y="285" font-size="13" fill="var(--ink)">at oxygen</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <section class="block">
+    <div><h2>Try it in 10 minutes</h2><p class="side">In the Claude app. No biology background needed.</p></div>
+    <ol class="try">
+      <li>Ask Claude: "Explain how mitochondria make ATP using a hydroelectric dam. Map water, dam wall, turbine and electricity to the real parts."</li>
+      <li>Check its answer against the steps above. Protons should be the water, the inner membrane the dam wall, ATP synthase the turbine.</li>
+      <li>Ask: "Where does the dam analogy break down?"</li>
+      <li>Close this page and explain the six steps in five sentences. Ask Claude to point out anything wrong.</li>
+    </ol>
+  </section>
+
+  <section class="block">
+    <div><h2>Projects</h2><p class="side">Sized by how much time you have.</p></div>
+    <dl class="projects">
+      <dt>1 hour</dt><dd>Redraw this cross-section from memory, then compare.</dd>
+      <dt>1 day</dt><dd>Explain mitochondria to someone else and write down the questions they ask.</dd>
+      <dt>1 week</dt><dd>Pick one mitochondrial disease and write half a page on which step it breaks.</dd>
+    </dl>
+  </section>
+
+  <section class="block">
+    <div><h2>Use it tomorrow</h2><p class="side">Tick them off as you go.</p></div>
+    <ul class="check">
+      <li><label><input type="checkbox"> Explain in two sentences why your body needs both food and oxygen.</label></li>
+      <li><label><input type="checkbox"> Before repeating a number you read about mitochondria, find its source.</label></li>
+      <li><label><input type="checkbox"> Run /learn-it:quiz to test yourself.</label></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <div><h2>Check yourself</h2><p class="side" id="score">3 questions.</p></div>
+    <div id="quiz"></div>
+  </section>
+
+  <section class="block sources">
+    <div><h2>Go deeper</h2></div>
+    <ul>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/1962047/">PubMed review on mitochondrial structure</a></li>
+      <li><a href="https://www.mrc-mbu.cam.ac.uk/files/3-ndna-v-mtdna-poster.pdf">MRC Mitochondrial Biology Unit: nuclear vs mitochondrial DNA</a></li>
+      <li><a href="https://peerj.com/preprints/2802.pdf">PeerJ preprint on the proton gradient</a></li>
+    </ul>
+  </section>
+  <p class="note">Example page bundled with learn-it to show the standard every lesson page should meet.</p>
+</main>
+<script>
+(function () {
+  var steps = [
+    { t: "The parts", b: "Two membranes. The outer one is smooth. The inner one folds into ridges called cristae, which gives it far more surface for the machinery that makes ATP.", w: "Press Next to follow one round of energy." },
+    { t: "1. Fuel is broken down", b: "In the matrix, enzymes take apart pieces of food (the citrate cycle and beta-oxidation) and pull off electrons.", w: "Where: the matrix, the inner space." },
+    { t: "2. Electrons run down a chain", b: "Four protein complexes sit in the inner membrane. Electrons pass from one to the next, giving up a little energy at each step.", w: "Where: along the folded inner membrane." },
+    { t: "3. Protons are pumped out", b: "Some complexes use that energy to push protons (hydrogen ions) out of the matrix into the space between the membranes.", w: "Where: across the inner membrane." },
+    { t: "4. The dam fills up", b: "Protons pile up on one side. That uneven pile is stored energy, like water held behind a dam.", w: "The gauge on the right is the stored energy." },
+    { t: "5. ATP synthase makes ATP", b: "Protons flow back into the matrix through ATP synthase, a protein in the inner membrane. It turns that flow into ATP, the cell's everyday fuel.", w: "Where: ATP synthase, like the turbine in the dam." },
+    { t: "6. Electrons end at oxygen", b: "At the end of the chain, the electrons are handed to oxygen. That is why you need to breathe as well as eat.", w: "Where: the last complex in the chain." }
+  ];
+  var cur = 0, cell = document.getElementById("cell"), btns = document.querySelectorAll(".stepper button");
+  function show(i) {
+    cur = Math.max(0, Math.min(steps.length - 1, i));
+    cell.setAttribute("class", "cell s" + cur);
+    btns.forEach(function (b) { b.setAttribute("aria-pressed", String(+b.dataset.step === cur)); });
+    document.getElementById("stTitle").textContent = steps[cur].t;
+    document.getElementById("stBody").textContent = steps[cur].b;
+    document.getElementById("stWhere").textContent = steps[cur].w;
+    document.getElementById("prev").disabled = cur === 0;
+    document.getElementById("next").textContent = cur === steps.length - 1 ? "Start over" : "Next step";
+  }
+  btns.forEach(function (b) { b.onclick = function () { show(+b.dataset.step); }; });
+  document.getElementById("next").onclick = function () { show(cur === steps.length - 1 ? 0 : cur + 1); };
+  document.getElementById("prev").onclick = function () { show(cur - 1); };
+  document.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1); });
+  show(0);
+
+  var quiz = [
+    { q: "What is the proton pile used for?", o: ["Copying DNA", "Driving ATP synthase to make ATP", "Bringing oxygen into the cell"], a: 1, why: "Protons flowing back through ATP synthase supply the energy to make ATP." },
+    { q: "Where does the electron chain sit?", o: ["In the inner membrane", "In the nucleus", "Floating in the matrix"], a: 0, why: "The four complexes are built into the folded inner membrane." },
+    { q: "Why are the cristae folded?", o: ["To store protons inside them", "To give more surface for the ATP-making machinery", "To keep oxygen out"], a: 1, why: "Folding packs far more membrane, and so more machinery, into the same space." }
+  ];
+  var done = 0, right = 0, box = document.getElementById("quiz");
+  quiz.forEach(function (q, qi) {
+    var d = document.createElement("div"); d.className = "q";
+    var p = document.createElement("p"); p.textContent = (qi + 1) + ". " + q.q; d.appendChild(p);
+    var v = document.createElement("p"); v.className = "verdict";
+    q.o.forEach(function (o, oi) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.textContent = o;
+      b.onclick = function () {
+        d.querySelectorAll(".opt").forEach(function (x) { x.disabled = true; });
+        d.querySelectorAll(".opt")[q.a].classList.add("right");
+        if (oi !== q.a) b.classList.add("wrong"); else right++;
+        v.textContent = (oi === q.a ? "Right. " : "Not quite. ") + q.why;
+        if (++done === quiz.length) document.getElementById("score").textContent = right + " of " + quiz.length + " right.";
+      };
+      d.appendChild(b);
+    });
+    d.appendChild(v); box.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
