@@ -19,7 +19,7 @@ Then read [team.md](../learn/team.md). If it is filled in, treat this as team on
 Pick the first case that fits:
 
 - **A local folder, or nothing given inside a code project:** read it where it is.
-- **A GitHub URL or owner/repo, and you can run commands:** `git clone --depth 1 <url>` into a temporary folder and read it there. Never run its install scripts, build or tests.
+- **A GitHub URL or owner/repo, and you can run commands:** `git clone --depth 1 <url>` into a new folder in the system temp directory (`$TMPDIR` or `/tmp` on Mac and Linux, `%TEMP%` on Windows), never inside the learner's folder, and read it there. Delete that clone when you finish, unless the learner asks to keep it. Never run its install scripts, build or tests.
 - **A GitHub URL, no commands available (for example the Claude app):** fetch the repo page, its README, and the main files through their raw GitHub links.
 
 Read, in this order: the README, the dependency or package file, the entry point, then the 5 to 10 files that matter most. Skip generated, vendored and lock files.

@@ -85,7 +85,7 @@ The design rules for lesson pages are adapted from Anthropic's `frontend-design`
 ## What it reads, changes and runs
 
 - **Reads:** web pages it finds for your topic, and the repo you point it at.
-- **Changes:** writes one `learn-it-<topic>.html` page in your current folder, and fills in `me.md` only if you say yes. Nothing else in your project. For a GitHub URL in Claude Code, it makes a shallow clone in a temporary folder. It never runs the repo's install, build or test scripts.
+- **Changes:** writes one `learn-it-<topic>.html` page in your current folder, and fills in `me.md` only if you say yes. Nothing else in your project. For a GitHub URL in Claude Code, it makes a shallow clone in your system temp folder and deletes it afterwards. It never runs the repo's install, build or test scripts.
 - **Runs:** `git clone --depth 1` for GitHub repos. No hooks, no servers. The lesson page is one self-contained HTML file with no outside scripts, fonts or images. The fact-checker can only read and fetch pages.
 
 ## If something is off
