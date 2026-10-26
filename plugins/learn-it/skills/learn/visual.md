@@ -7,6 +7,7 @@ Every lesson and repo walkthrough also becomes one page the learner can open in 
 1. Copy [lesson-template.html](lesson-template.html) to a new file named `learn-it-<short-topic>.html` in the learner's current folder. In the Claude app, show the finished page as an HTML artifact instead of saving a file.
 2. Replace ONLY the JSON inside `<script type="application/json" id="lesson">`. Do not change anything else in the file.
 3. The JSON must be valid. Use `\n` for line breaks inside strings, and never put `</script>` inside it.
+4. Leave exactly one new file in the learner's folder: the lesson page. If you used a helper script or a scratch copy to build it, delete those before you finish.
 
 ## The JSON
 
