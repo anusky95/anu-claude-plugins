@@ -17,6 +17,7 @@ Check, in this order:
 4. **Exercise is safe and possible.** The hands-on steps only use what the learner has, and nothing in them deletes data, spends money or touches production.
 5. **Quiz answers are right.** Each quiz answer is supported by the lesson or source.
    Projects and "use it tomorrow" tips are suggestions and need no source, but flag any new fact hidden inside them.
+   If a diagram is included, every box and arrow must match the facts: flag any part that is not in the sources or the code.
 6. FILL IN (optional): one more check, for example "every acronym is spelled out once".
 
 Report in this exact shape:

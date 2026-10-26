@@ -12,7 +12,17 @@ If no topic was given, ask: "What do you want to learn?" and wait.
 
 ## Step 1. Know the learner
 
-Read [me.md](me.md). If its FILL IN lines are blank, assume a curious professional who is new to the topic, and say so in one line at the end.
+Read [me.md](me.md). If it is filled in, use it and go on.
+
+If its FILL IN lines are still blank, ask these three questions in ONE short message, then wait:
+
+1. What's your job? (for example "compliance analyst at a bank" or "backend developer")
+2. How technical are you? (a) new to this, (b) I can read code, (c) I write code every day
+3. Where will you try things? (a) the Claude app, (b) Claude Code in a terminal, (c) both
+
+Add: "Or say skip and I'll assume a curious professional who is new to this."
+
+Use the answers for this lesson. Then, if you can edit files, offer once: "Want me to save this to me.md so I don't ask again?" If they say yes, fill in me.md's FILL IN lines with their answers in their words, and change nothing else in the file.
 
 ## Step 2. Go to the source
 
@@ -28,14 +38,18 @@ Write a short list of facts you will teach, each with the link it came from. Do 
 
 ## Step 3. Write the lesson
 
-Follow [teaching-style.md](teaching-style.md) exactly, shaped by me.md.
+Follow [teaching-style.md](teaching-style.md) exactly, shaped by me.md. Also draft the diagram for the visual page now (see [visual.md](visual.md)), so the fact-checker sees it.
 
 ## Step 4. Fact-check
 
 This step is required. Hand the `fact-checker` agent from this plugin the lesson and the fact list with links. Apply every fix it marks REQUIRED. If agents are not available here (for example in claude.ai chat), check each claim against its link yourself.
 
-## Step 5. Hand it over
+## Step 5. Make the visual page
 
-Show the lesson. Under it, one line: "Fact-checked against N sources, as of <today's date>." Then: "Say `/learn-it:quiz` when you're ready to test yourself, or ask me to go deeper on any part."
+Always do this. Follow [visual.md](visual.md): copy [lesson-template.html](lesson-template.html) to `learn-it-<short-topic>.html` and fill in its lesson JSON from the fact-checked lesson. The diagram must show the real mechanism.
+
+## Step 6. Hand it over
+
+Show the lesson. Under it, one line: "Fact-checked against N sources, as of <today's date>." Then give the path of the visual page and say: "Open it in your browser for the diagram and a clickable quiz." In the Claude app, show the page as an HTML artifact. End with: "Say `/learn-it:quiz` when you're ready to test yourself, or ask me to go deeper on any part."
 
 FILL IN (optional): add a step for your team, for example "save the lesson to `lessons/<topic>.md`".

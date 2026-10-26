@@ -10,7 +10,7 @@ Repo: $ARGUMENTS
 
 ## Step 1. Know the learner
 
-Read [me.md](../learn/me.md). If it is blank, assume a professional who can read a little code.
+Read [me.md](../learn/me.md). If it is filled in, use it. If its FILL IN lines are blank, ask the same three questions as the learn skill's Step 1 (job, how technical, where they'll try things) in one short message and wait, with the same "skip" option and the same offer to save the answers to me.md.
 
 ## Step 2. Get the code
 
@@ -39,12 +39,16 @@ Use this shape:
 9. **Use it tomorrow.** A short checklist before using this repo at work: check its license (name the file), how recently it was updated, what it runs or connects to, any secrets or data it touches, and who at work should review it. Then the first concrete step.
 10. **Check yourself.** 3 multiple-choice questions about this repo. Answers at the end with the `file:line` that proves each.
 
-Follow the rules in [teaching-style.md](../learn/teaching-style.md) for tone and length.
+Follow the rules in [teaching-style.md](../learn/teaching-style.md) for tone and length. Also draft the diagram for the visual page now (see [visual.md](../learn/visual.md)), so the fact-checker sees it.
 
 ## Step 4. Fact-check
 
 Required. Hand the `fact-checker` agent the walkthrough and the path to the code (or the links you fetched). It confirms every `file:line` and claim. Apply its REQUIRED fixes. Without agents, check each `file:line` yourself.
 
-## Step 5. Hand it over
+## Step 5. Make the visual page
 
-Show the walkthrough, then: "Every file reference was checked against the code. Say `/learn-it:quiz` to test yourself."
+Always do this. Follow [visual.md](../learn/visual.md): copy [lesson-template.html](../learn/lesson-template.html) to `learn-it-<repo-name>.html` in the learner's current folder (not inside the clone), set `"kind": "repo"`, put the folder tree in `map`, and draw how one real request moves through the files in the diagram.
+
+## Step 6. Hand it over
+
+Show the walkthrough, then the path of the visual page: "Open it in your browser for the diagram and a clickable quiz." In the Claude app, show the page as an HTML artifact. End with: "Every file reference was checked against the code. Say `/learn-it:quiz` to test yourself."
