@@ -26,6 +26,8 @@ Use the answers for this lesson. Then, if you can edit files, offer once: "Want 
 
 Then read [team.md](team.md). If it is filled in, this lesson is part of a team's onboarding: use the team's words and rules, mention who owns what and where to ask for help, and tie the "why it matters" and the projects to the team's work. If it is blank, skip it.
 
+If the `lookup_term` tool from learn-it's glossary connector is available, use it for any team term in the lesson. Its definition wins over your own. If a term is not in the glossary, say so rather than guess.
+
 ## Step 2. Go to the source
 
 Do not teach from memory. Things in AI change every week.

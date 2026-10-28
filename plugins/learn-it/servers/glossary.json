@@ -1,0 +1,10 @@
+{
+  "_about": "Made-up sample terms for a fictional payments team. FILL IN: replace them with your team's terms. Use approved, non-secret definitions only.",
+  "terms": {
+    "the ledger": "Our double-entry service. Every payment writes two matching entries here. Owned by the Core team.",
+    "T+1": "Settlement on the next business day after a payment is made.",
+    "recon": "Reconciliation: the nightly job that checks our ledger against the bank's statement.",
+    "four-eyes rule": "Any change to payment logic needs a second reviewer before it ships.",
+    "PII": "Personally identifiable information, such as names, emails and card numbers. Never paste it into a prompt."
+  }
+}

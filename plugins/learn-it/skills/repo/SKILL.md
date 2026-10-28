@@ -14,6 +14,8 @@ Read [me.md](../learn/me.md). If it is filled in, use it. If its FILL IN lines a
 
 Then read [team.md](../learn/team.md). If it is filled in, treat this as team onboarding: use the team's words, follow its rules, say who to ask for help, and if this repo is not first on its "Start here" list, mention which one to learn first. If it is blank, skip it.
 
+If the `lookup_term` tool from learn-it's glossary connector is available, use it for any team term in the walkthrough. Its definition wins over your own. If a term is not in the glossary, say so rather than guess.
+
 ## Step 2. Get the code
 
 Pick the first case that fits:
