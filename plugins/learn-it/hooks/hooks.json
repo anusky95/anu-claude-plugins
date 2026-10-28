@@ -1,15 +1,12 @@
 {
   "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/save-lesson.sh\""
-          }
-        ]
-      }
-    ]
+    "PostToolUse": [{
+      "matcher": "Write",
+      "hooks": [{
+        "type": "command",
+        "command":
+          "\"${CLAUDE_PLUGIN_ROOT}/hooks/save-lesson.sh\""
+      }]
+    }]
   }
 }
